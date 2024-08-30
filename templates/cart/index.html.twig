@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier - MGK BOUTIQUE{% endblock %}
+
+{% block content %}
+
+<h1>Mon panier</h1>
+
+<p>Retrouvez l'ensemble des produits que vous avez ajoutés à votre panier.</p>
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% if cart is not empty %}
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Produit</th>
+      <th scope="col"></th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Total</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% set total = 0 %}
+    {% set totalQuantity = 0 %}
+    {% for item in cart %}
+    <tr>
+      <td>
+        <img src="/uploads/{{ item.product.illustration }}" alt="{{ item.product.name }}" height="75px">
+      </td>
+      <td>
+        {{ item.product.name }}<br>
+        <small>{{ item.product.subtitle }}</small>
+      </td>
+      <td>x{{ item.quantity }}</td>
+      <td>{{ (item.product.price / 100) | number_format(2,',','.') }} €</td>
+      <td>{{ (item.product.price / 100 * item.quantity) | number_format(2,',','.') }} €</td>
+      <td>
+        
+          <a href="{{ path('delete_to_cart', { 'id' : item.product.id }) }}">
+                <img src="{{ asset('assets/img/poublle.jpg') }}" height="18px" alt="Supprimer mon produit">
+          </a>
+      </td>
+    </tr>
+    {% set total = total + (item.product.price / 100 * item.quantity) %}
+    {% set totalQuantity = totalQuantity + item.quantity %}
+    {% endfor %}
+  </tbody>
+</table>
+<div class="text-right mb-5">
+  <b>Nombre de produits :</b> {{ totalQuantity }}<br/>
+  <b>Total de mon panier :</b> {{ total | number_format(2, ',', ' ') }} €
+  <a href="{{path('order')}}" class="btn btn-success btn-block mt-3">Valider mon panier</a>
+</div>
+{% else %}
+<p>Votre panier est vide.</p>
+{% endif %}
+
+{% endblock %}

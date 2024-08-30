@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - MGK BOUTIQUE{% endblock %}
+
+{% block content %}
+<h2>Je passe ma commande</h2>
+<p>Choisissez vos préférences avant de passer votre commande sur MGK BOUTIQUE</p>
+<hr>
+<div class='row'>
+    <div class='col-md-6'>
+        <b>Choisir mon adresse de livraison</b>
+        {% set formHtml %}
+        {{ form_start(form,{action:path('order_recap')}) }}
+        {{ form_end(form)}}
+        {% endset %}
+
+        {{ formHtml|replace({ '[br]': '<br>' })|raw }}
+    </div>
+
+    <div class='col-md-6'>
+    <div class='text-center'>
+       <b>Récapitulatif de ma commande</b> <br/>
+       <p>Retrouver le recapitulatif de vos produits</p>
+    </div>
+        
+        <div class='order-summary'>
+    {% for key,item in cart %}
+    <div class='row {% if key >0 %} mt-2{% endif %}'>
+
+        <div class='col'> <img src="/uploads/{{ item.product.illustration }}" alt="{{ item.product.name }}" height="75px"></div>
+
+        <div class='col-7 m-4'> <p>{{ item.product.name }} - Quantité :x {{ item.quantity }}</p></div>      
+        {% endfor %}
+        <b>Bouton pour payer</b>
+  </div>
+  </div>
+
+        
+        
+
+{% endblock %}

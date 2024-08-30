@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block content %}
+<h1> Mon compte- MGK BOUTIQUE</h1>
+Bienvenue  {{(app.user.firstname)}} dans votre compte<br>
+ cet dans cette espace  que vous allez pouvoir gerer toute vos information personelle
+<hr>
+- <a 
+href = "{{path ('account_password')}}"> modifier mon mot de passe <a><br>  
+ <a href = "{{path ('account_address')}}"> Gérer mes adresses <a/><br>
+ <a href = "{{path ('account')}}"> Gérer mes commande <a/><br>
+
+<hr>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter - MGK BOUTIQUE{% endblock %}
+
+{% block content %}
+<h2>Nous contacter</h2>
+<p>N'hésitez pas à prendre contact avec notre équipe, nous vous répondrons dans les meilleurs délais.</p>
+
+{# Affichage des messages flash #}
+{% for flash_message in app.flashes('notice') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+{# Affichage des erreurs du formulaire #}
+{% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+{% endif %}
+
+<div class='row'>
+    <div class='col-md-8'>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div class='col-md-4'>
+        <strong>MGK-BOUTIQUE</strong>
+        <hr>
+        06 12 34 56 78<br/>
+        3 rue de Clichy 93400<br/>
+        contact@mgkboutique.com<br/>
+    </div>
+</div>
+{% endblock %}
